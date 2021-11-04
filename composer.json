@@ -1,6 +1,6 @@
 {
     "name": "ahmedalaa/robot-instructions",
-    "description": "read roboy instructios and output the final location in file",
+    "description": "read robot instructions and output the final position in file",
     "type": "project",
     "license": "MIT",
     "authors": [

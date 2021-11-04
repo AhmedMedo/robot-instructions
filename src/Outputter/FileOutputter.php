@@ -4,11 +4,26 @@ namespace App\Outputter;
 class FileOutputter
 {
 
-    protected $data;
+    protected $x_direction;
+    protected $y_direction;
+    public $is_final = false;
 
-    public function setData($data)
+    public function setX($x_direction)
     {
-        $this->data = $data;
+        $this->x_direction = $x_direction;
+    }
+    public function getX()
+    {
+        return $this->x_direction;
+    }
+
+    public function setY($y_direction)
+    {
+        $this->y_direction =  $y_direction;
+    }
+    public function getY()
+    {
+        return $this->y_direction;
     }
 
     public function getData()
@@ -16,14 +31,21 @@ class FileOutputter
         return $this->data;
     }
 
-    public function save($content)
+    public function save()
     {
 
         if (!file_exists(__DIR__."/../Result")) {
             mkdir(__DIR__."/../Result", 0777, true);
         }
-        file_put_contents(__DIR__."/../Result/".implode($this->getData()).".txt", $content."\n", FILE_APPEND | LOCK_EX);
+        file_put_contents(__DIR__."/../Result/".time().".txt", ($this->is_final ? $this->buildFinalContent() :$this->buildContent())."\n", FILE_APPEND | LOCK_EX);
+    }
 
-        
+    public function buildContent()
+    {
+        return "Direction X = {$this->getX()} & Direction Y = {$this->getY()}";
+    }
+    public function buildFinalContent()
+    {
+        return "Final Direction X = {$this->getX()} & Final Direction Y = {$this->getY()}";
     }
 }

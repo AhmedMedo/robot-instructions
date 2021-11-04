@@ -18,8 +18,6 @@ class RobotInstructionsService
     public function moveRobot():void
     { 
         $this->parser->validate();
-        $this->outputter->setData($this->parser->toArray());
-
         $x = 0;
         $y = 0;
         for ($i=0; $i < count($this->parser->toArray()); $i++) {
@@ -36,11 +34,16 @@ class RobotInstructionsService
             if($this->parser->toArray()[$i] == 'B'){
                 $y = max($y-1 , 0);
             }
-            $this->outputter->save("Direction X = {$x} & Direction Y = {$y}");
+            $this->outputter->setX($x);
+            $this->outputter->setY($y);
+            $this->outputter->save();
         }
 
-        $this->outputter->save("Final Direction X = {$x} & Final Direction Y = {$y}");
-        
+            $this->outputter->setX($x);
+            $this->outputter->setY($y);
+            $this->outputter->is_final = true;
+            $this->outputter->save();
+    
     }
 
 
