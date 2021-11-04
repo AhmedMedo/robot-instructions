@@ -6,6 +6,7 @@ class FileOutputter
 
     protected $x_direction;
     protected $y_direction;
+    protected $file_name;
     public $is_final = false;
 
     public function setX($x_direction)
@@ -26,6 +27,15 @@ class FileOutputter
         return $this->y_direction;
     }
 
+    public function setFileName($file_name)
+    {
+        $this->file_name = $file_name;
+    }
+    public function getFileName()
+    {
+        return $this->file_name;
+    }
+
     public function getData()
     {
         return $this->data;
@@ -37,7 +47,7 @@ class FileOutputter
         if (!file_exists(__DIR__."/../Result")) {
             mkdir(__DIR__."/../Result", 0777, true);
         }
-        file_put_contents(__DIR__."/../Result/".time().".txt", ($this->is_final ? $this->buildFinalContent() :$this->buildContent())."\n", FILE_APPEND | LOCK_EX);
+        file_put_contents(__DIR__."/../Result/".$this->getFileName().".txt", ($this->is_final ? $this->buildFinalContent() :$this->buildContent())."\n", FILE_APPEND | LOCK_EX);
     }
 
     public function buildContent()

@@ -18,6 +18,8 @@ class RobotInstructionsService
     public function moveRobot():void
     { 
         $this->parser->validate();
+        $this->outputter->setFileName(implode($this->parser->toArray()));
+
         $x = 0;
         $y = 0;
         for ($i=0; $i < count($this->parser->toArray()); $i++) {
